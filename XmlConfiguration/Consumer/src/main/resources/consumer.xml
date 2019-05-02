@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+>
+    <!--仅保留核心配置-->
+
+    <!--包扫描-->
+    <context:component-scan base-package="com.cnblogs.hellxz"/>
+
+    <!-- 提供方应用信息，用于计算依赖关系，请勿与提供方相同 -->
+    <dubbo:application name="service-consumer">
+        <dubbo:parameter key="qos.enable" value="true"/>
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false"/>
+        <!--
+        报错java.net.BindException: 地址已在使用
+        问题出现的原因：
+            consumer启动时qos-server也是使用的默认的22222端口，但是这时候端口已经被provider给占用了，所以才会报错的。
+        解决：指定新端口号
+        -->
+        <dubbo:parameter key="qos.port" value="33333"/>
+    </dubbo:application>
+
+    <!-- 指定注册中心使用的协议，这里使用zookeeper实现，地址为zookeeper的ip与端口 -->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <!-- 引用——通过rpc调用注册服务id为providerService的服务，通过这个设置我们就可以像调用本地方法一样调用
+        需要注意的是：接口的包结构与类名，id均要与服务提供者完全相同，本人已测试
+     -->
+    <dubbo:reference interface="com.cnblogs.hellxz.service.IProviderService" id="providerService"/>
+</beans>
