@@ -1,5 +1,4 @@
 ## 项目说明
 **本项目为Alibaba Dubbo的入门学习项目**
 
-- XmlConfiguration模块是**xml全配置**的，对应本人博客园文章：[Dubbo入门01--以Zookeeper注册中心讲起](https://www.cnblogs.com/hellxz)
-欢迎关注评论交流
+- 分别演示了如何使用XML全配置式开发与基于XML的注解式开发
