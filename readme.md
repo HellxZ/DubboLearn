@@ -1,5 +1,9 @@
 ## 项目说明
 **本项目为Alibaba Dubbo的入门学习项目**
 
-- XmlConfiguration模块是**xml全配置**的，对应本人博客园文章：[Dubbo入门01--以Zookeeper注册中心讲起](https://www.cnblogs.com/hellxz)
-欢迎关注评论交流
+- Master分支仅保留第一个xml全配置的模块
+- xml-base01分支为在保留全配置基础上，将服务接口单独提了个模块，服务提供者与消费者共同使用;另外添加了使用xml方式配置的注解驱动，可以使用注解开发， 仅为简单调用的Demo
+
+#### 目前的情况
+- 所有分支均使用官方推荐Zookeeper注册中心
+- 后续还会接着学习Dubbo的SpringBoot集成方式
