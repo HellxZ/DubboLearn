@@ -105,6 +105,24 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.32.Final</version>
         </dependency>
+        <!--添加公用接口模块-->
+        <dependency>
+            <groupId>com.cnblogs.hellxz</groupId>
+            <artifactId>CommonInterface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <!--解决使用注解出现ClassNotFoundException: com.alibaba.spring.beans.factory.annotation.AnnotationInjectedBeanPostProcessor-->
+        <dependency>
+            <groupId>com.alibaba.spring</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
 
     <build>

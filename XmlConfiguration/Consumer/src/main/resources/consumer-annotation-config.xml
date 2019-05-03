@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+>
+    <!--仅保留核心配置-->
+
+    <!--开启切面编程自动代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--包扫描-->
+    <context:component-scan base-package="com.cnblogs.hellxz"/>
+    <!--扫描注解生成bean-->
+    <context:annotation-config/>
+
+    <!-- 提供方应用信息，用于计算依赖关系，请勿与提供方相同 -->
+    <dubbo:application name="service-consumer">
+        <dubbo:parameter key="qos.enable" value="true"/>
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false"/>
+        <!--
+        报错java.net.BindException: 地址已在使用
+        问题出现的原因：
+            consumer启动时qos-server也是使用的默认的22222端口，但是这时候端口已经被provider给占用了，所以才会报错的。
+        解决：指定新端口号
+        -->
+        <dubbo:parameter key="qos.port" value="33333"/>
+    </dubbo:application>
+
+    <!-- 使用zookeeper注册中心暴露服务地址，地址为zookeeper所在地址 -->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <dubbo:annotation package="com.cnblogs.hellxz"/>
+</beans>

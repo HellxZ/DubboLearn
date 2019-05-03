@@ -32,7 +32,8 @@
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
 
     <!-- 引用——通过rpc调用注册服务id为providerService的服务，通过这个设置我们就可以像调用本地方法一样调用
-        需要注意的是：接口的包结构与类名，id均要与服务提供者完全相同，本人已测试
+        需要注意的是：接口的包结构与类名，id均要与服务提供者完全相同，所以提出来个接口模块
+        使用前注意将CommonInterface模块install到本地仓库
      -->
     <dubbo:reference interface="com.cnblogs.hellxz.service.IProviderService" id="providerService"/>
 </beans>

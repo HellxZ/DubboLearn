@@ -1,8 +1,11 @@
 package com.cnblogs.hellxz.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.cnblogs.hellxz.service.IProviderService;
 
+@Service
 public class ProviderServiceImpl implements IProviderService {
+
     @Override
     public String call() {
         //为了演示清楚，打印红色的输出，并非错误信息

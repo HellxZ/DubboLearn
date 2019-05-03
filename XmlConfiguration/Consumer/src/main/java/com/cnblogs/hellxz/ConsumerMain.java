@@ -1,18 +1,37 @@
 package com.cnblogs.hellxz;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import com.cnblogs.hellxz.service.IProviderService;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 /**
  * 消费者启动类
  */
 public class ConsumerMain {
-    public static void main(String[] args) {
-        //初始化spring容器
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("consumer.xml");
-        //取出容器中的bean
-        IProviderService providerService = (IProviderService)ctx.getBean("providerService");
-        //打印调用结果 为了演示清楚，打印红色的输出，并非错误信息
+
+    @Test
+    public void testFullXmlConfig() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("consumer-full-xml-config.xml");
+        //由于上边的xml中没有扫描注解，不会走service.impl包下的实现，按照xml下id做为bean的键
+        IProviderService providerService = (IProviderService) ctx.getBean("providerService");
         System.err.println(providerService.call());
     }
+
+    @Test
+    public void testAnnotationConfig() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("consumer-annotation-config.xml");
+        //注解方式无法找到指定的bean,这里对应到一个实体中完成业务，这里先埋个点，会在下个分支用springBoot重写一遍
+        IProviderService providerService = (IProviderService) context.getBean("providerService");
+        System.err.println(providerService.call());
+    }
+
 }

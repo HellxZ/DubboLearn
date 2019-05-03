@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+>
+    <!--仅保留核心配置-->
+
+    <!--开启切面编程自动代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--扫描注解生成bean-->
+    <context:annotation-config/>
+    <!--包扫描-->
+    <context:component-scan base-package="com.cnblogs.hellxz"/>
+
+    <!-- 提供方应用信息，用于计算依赖关系，请勿与其他服务名称相同 -->
+    <dubbo:application name="service-provider"/>
+    <!-- 使用zookeeper注册中心暴露服务地址，地址为zookeeper所在地址 -->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <dubbo:annotation package="com.cnblogs.hellxz"/>
+</beans>
