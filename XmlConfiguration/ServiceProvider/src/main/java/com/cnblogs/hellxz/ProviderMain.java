@@ -3,14 +3,12 @@ package com.cnblogs.hellxz;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
  * 服务提供者启动类
  */
-@Component
 public class ProviderMain {
 
     /**
